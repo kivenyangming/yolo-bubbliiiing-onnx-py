@@ -1,8 +1,8 @@
 ## 前言
 &emsp;&emsp;首先感谢bubbliiiing博主提供的yolo代码！
 整个部署程序分为四步（C++）：
-1. 下载bubbliiiing博主项目更改predict 为 export_onnx\
-2. 更改文件夹nets下的yolo.py代码\
+1. 下载bubbliiiing博主项目更改predict 为 export_onnx
+2. 更改文件夹nets下的yolo.py代码
 3. 生成onnx文件
 4. 下载此项目进行cmake&make
 经测试，可以对(pytorch版本的)yolov4 -- yolov5 -- yolov5-6.1 yolov7 进行转换测试
@@ -43,7 +43,7 @@ line300 ----line316:
         return [out0, out1, out2]
 ```
 如下图为bubbliiiing博主源码生成的onnx输入输出信息截取
-![img.png](img.png)
+![image](https://user-images.githubusercontent.com/59249258/202358126-70aaa611-b57d-44b9-950c-1fc5f019fda8.png)
 
 &emsp;&emsp;bubbliiiing 这里的return[out0, out1, out2] 在经过"export_onnx"后并没有torch.cat，我们需要将输出的结果进行torch.cat操作，
 在进行torch.cat操作之前需要将输出结果进行转换一下维度，详见如下代码：
@@ -77,7 +77,8 @@ line300 ----line316:
         return output
 ```
 &emsp;&emsp;**使用上述的代码部分替代源代码的line300 至 line316:** 更换后得到的信息下图所示\
-![img_1.png](img_1.png)
+![image](https://user-images.githubusercontent.com/59249258/202358185-f54109b8-fcd2-4978-bac4-53a2470dc1c8.png)
+
 
 &emsp;&emsp;大家在更换自己的数据集进行训练得到的权重进行pth2onnx时需要注意：上述代码注释部分的更换85（coco数据集的类别数+5），
 在这里需要更换为自己的数据集的类别数再加上5。例如自己的数据集是10个类别(nc=10)，那么这里的no=10+5 ;也就是85需要更改为15（no = nc + 5）
