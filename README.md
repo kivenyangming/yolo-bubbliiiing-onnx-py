@@ -12,7 +12,7 @@
 &emsp;&emsp;这里我以yolov7为例子向大家展示如何得到onnx以及运行onnx进行部署(bubbliiiing博主v4>>v5>>v5-6.1同理)
 
 ## Step1:
-git clone https://github.com/bubbliiiing/yolov7-pytorch.git\
+git clone https://github.com/bubbliiiing/yolov7-pytorch.git \
 cd yolov7-pytorch\
 pip install -r requirements.txt\
 vim predict.py
@@ -42,7 +42,7 @@ line300 ----line316:
 
         return [out0, out1, out2]
 ```
-如下图为bubbliiiing博主源码生成的onnx输入输出信息截取
+如下图为bubbliiiing博主源码生成的onnx输入输出信息截取\
 ![image](https://user-images.githubusercontent.com/59249258/202358126-70aaa611-b57d-44b9-950c-1fc5f019fda8.png)
 
 &emsp;&emsp;bubbliiiing 这里的return[out0, out1, out2] 在经过"export_onnx"后并没有torch.cat，我们需要将输出的结果进行torch.cat操作，
