@@ -3,6 +3,7 @@ from math import exp, pow
 import cv2.cv2
 import cv2.dnn
 import numpy as np
+from numba import jit
 
 className = list(map(lambda x: x.strip(), open('coco.names', 'r').readlines())) # 可替换自己的类别文件
 # 替换对应yolo的Anchors值
@@ -28,7 +29,7 @@ def GetColors(color_num):
         ColorList.append(BGR)
     return ColorList
 
-
+@jit(nopython=True)
 def Sigmoid(x):
     x = float(x)
     out = (float(1.) / (float(1.) + exp(-x)))
